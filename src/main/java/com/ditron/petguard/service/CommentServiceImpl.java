@@ -31,15 +31,20 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment getCommentByIdAndUserId(Long userId, Long commentId) {
-        return commentRepository.findByIdAndUserId(commentId, userId)
+        return commentRepository.findByIdAndOwnerId(commentId, userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Comment not found with Id" + commentId +
                                 " and UserId " + userId));
     }
 
     @Override
-    public Comment createComment(Comment comment) {
-        return commentRepository.save(comment);
+    public Comment createComment(Long ownerId,Comment comment) {
+
+        return ownerRepository.findById(ownerId).map(owner -> {
+            comment.setOwner(owner);
+            return commentRepository.save(comment);
+        }).orElseThrow(() -> new ResourceNotFoundException(
+                "Owner", "Id", ownerId));
     }
 
     @Override

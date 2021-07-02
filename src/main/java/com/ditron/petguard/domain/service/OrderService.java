@@ -16,5 +16,5 @@ public interface OrderService {
 
     ResponseEntity<?> deleteOrder(Long orderId);
 
-    Page<Order> getAllOrdersByUserId(Long userId, Pageable pageable);
+    Page<Order> getAllOrdersByOwnerId(Long ownerId, Pageable pageable);
 }

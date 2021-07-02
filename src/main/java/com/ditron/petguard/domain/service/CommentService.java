@@ -4,7 +4,6 @@ import com.ditron.petguard.domain.model.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 
 public interface CommentService {
@@ -14,7 +13,7 @@ public interface CommentService {
 
     Comment getCommentByIdAndUserId(Long commentId,Long userId);
 
-    Comment createComment(Comment comment);
+    Comment createComment(Long ownerId,Comment comment);
 
     Comment updateComment(Long commentId, Comment commentDetails);
 

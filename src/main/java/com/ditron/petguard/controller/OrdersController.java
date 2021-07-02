@@ -27,7 +27,7 @@ public class OrdersController {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private OwnerService userService;
+    private OwnerService ownerService;
 
     @Autowired
     private ModelMapper mapper;
@@ -61,7 +61,7 @@ public class OrdersController {
     @PostMapping("/owners/{ownerId}/orders")
     public OrderResource createOrder(@PathVariable Long userId, @Valid @RequestBody SaveOrderResource resource) {
         Order order = convertToEntity(resource);
-        order.setOwner(userService.getUserById(userId));
+        order.setOwner(ownerService.getOwnerById(userId));
         return convertToResource(orderService.createOrder(order));
     }
 

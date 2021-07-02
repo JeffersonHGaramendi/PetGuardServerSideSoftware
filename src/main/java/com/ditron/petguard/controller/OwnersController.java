@@ -27,7 +27,7 @@ public class OwnersController {
     private ModelMapper mapper;
 
     @Autowired
-    private OwnerService userService;
+    private OwnerService ownerService;
 
     @Operation(summary = "Get Owners", description = "Get All Owners by Page", tags = {"owners"})
     @ApiResponses(value = {
@@ -35,8 +35,8 @@ public class OwnersController {
 
     })
     @GetMapping("/owners")
-    public Page<OwnerResource> getAllUser(Pageable pageable) {
-        Page<Owner> userPage = userService.getAllUsers(pageable);
+    public Page<OwnerResource> getAllOwners(Pageable pageable) {
+        Page<Owner> userPage = ownerService.getAllOwners(pageable);
         List<OwnerResource> resources = userPage.getContent()
                 .stream()
                 .map(this::convertToResource)
@@ -51,9 +51,9 @@ public class OwnersController {
 
     })
     @GetMapping("/owners/{ownerId}")
-    public OwnerResource getUserById(
-            @PathVariable Long userId) {
-        return convertToResource(userService.getUserById(userId));
+    public OwnerResource getOwnerById(
+            @PathVariable Long ownerId) {
+        return convertToResource(ownerService.getOwnerById(ownerId));
     }
 
     @Operation(summary = "Create a Owner", description = "Create a Owner", tags = {"owners"})
@@ -62,9 +62,9 @@ public class OwnersController {
 
     })
     @PostMapping("/owners/{ownerId}")
-    public OwnerResource createUser(@Valid @RequestBody SaveOwnerResource resource) {
-        Owner user = convertToEntity(resource);
-        return convertToResource(userService.createUser(user));
+    public OwnerResource createOwner(@Valid @RequestBody SaveOwnerResource resource) {
+        Owner owner = convertToEntity(resource);
+        return convertToResource(ownerService.createOwner(owner));
     }
 
     @Operation(summary = "Update a Owner", description = "Update a Owner", tags = {"owners"})
@@ -73,9 +73,9 @@ public class OwnersController {
 
     })
     @PutMapping("/owners/{ownerId}")
-    public OwnerResource updateUser(@PathVariable Long userId, @Valid @RequestBody SaveOwnerResource resource) {
+    public OwnerResource updateOwner(@PathVariable Long ownerId, @Valid @RequestBody SaveOwnerResource resource) {
         Owner user = convertToEntity(resource);
-        return convertToResource(userService.updateUser(userId, user));
+        return convertToResource(ownerService.updateOwner(ownerId, user));
     }
 
     @Operation(summary = "Delete a Owner", description = "Delete a Owner", tags = {"owners"})
@@ -84,8 +84,8 @@ public class OwnersController {
 
     })
     @DeleteMapping("/owners/{ownerId}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
-        return userService.deleteUser(userId);
+    public ResponseEntity<?> deleteOwner(@PathVariable Long ownerId) {
+        return ownerService.deleteOwner(ownerId);
     }
 
     private Owner convertToEntity(SaveOwnerResource resource) {

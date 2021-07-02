@@ -6,13 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface OwnerService {
-    Page<Owner> getAllUsers(Pageable pageable);
+    Page<Owner> getAllOwners(Pageable pageable);
 
-    Owner getUserById(Long userId);
+    Owner getOwnerById(Long userId);
 
-    Owner createUser(Owner user);
+    Owner createOwner(Owner user);
 
-    Owner updateUser(Long userId,Owner userDetails);
+    Owner updateOwner(Long userId,Owner userDetails);
 
-    ResponseEntity<?> deleteUser(Long userId);
+    ResponseEntity<?> deleteOwner(Long userId);
 }
+

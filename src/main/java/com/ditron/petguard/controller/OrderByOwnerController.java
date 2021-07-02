@@ -34,10 +34,9 @@ public class OrderByOwnerController {
             @ApiResponse(responseCode = "200", description = "All Orders by Owner Id returned", content = @Content(mediaType = "application/json"))
     })
     @GetMapping("/owners/{ownerId}/orders")
-    public List<OrderResource> getAllOrdersByUserId(
-            @PathVariable(name = "userId") Long userId, Pageable pageable){
+    public List<OrderResource> getAllOrdersByOwnerId(@PathVariable(name = "ownerId") Long userId, Pageable pageable){
 
-        Page<Order> orderPage = orderService.getAllOrdersByUserId(userId,pageable);
+        Page<Order> orderPage = orderService.getAllOrdersByOwnerId(userId,pageable);
         List<OrderResource> resources = orderPage.getContent().stream().map(
                 this::convertToResource).collect(Collectors.toList());
         // return new PageImpl<>(resources,pageable,resources.size());
@@ -49,3 +48,4 @@ public class OrderByOwnerController {
         return mapper.map(entity,OrderResource.class);
     }
 }
+

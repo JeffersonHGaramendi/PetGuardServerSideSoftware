@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ditron</groupId>
-    <artifactId>PetGuard</artifactId>
+    <artifactId>petguard</artifactId>
     <version>1.0</version>
     <name>petguard</name>
     <description>PetGuard.io RESTful API implemented with Spring Boot</description>
@@ -84,4 +84,3 @@
     </build>
 
 </project>
-

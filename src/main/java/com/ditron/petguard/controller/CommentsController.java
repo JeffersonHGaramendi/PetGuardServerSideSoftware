@@ -30,7 +30,7 @@ public class CommentsController {
     @Autowired
     private CommentService commentService;
     @Autowired
-    private OwnerService userService;
+    private OwnerService ownerService;
 
     @Operation(summary = "Get Comments", description = "Get All Comments by Page", tags = {"comments"})
     @ApiResponses(value = {
@@ -54,19 +54,18 @@ public class CommentsController {
 
     })
     @GetMapping("/comments/{commentId}")
-    public CommentResource getCommentById(
-            @PathVariable Long commentId) {
+    public CommentResource getCommentById(@PathVariable Long commentId) {
         return convertToResource(commentService.getCommentById(commentId));
     }
 
-    @Operation(summary = "Get Comment By Comment ID and User ID", description = "Get Comment by Comment ID and User ID", tags = {"comments"})
+    @Operation(summary = "Get Comment By Comment ID and Owner ID", description = "Get Comment by Comment ID and Owner ID", tags = {"comments"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Comment and User returned", content = @Content(mediaType = "application/json"))
 
     })
-    @GetMapping("/users/{userId}/comments/{commentId}")
-    public CommentResource getCommentByIdAndUserId(@PathVariable Long userId, @PathVariable Long commentId) {
-        return convertToResource(commentService.getCommentByIdAndUserId(userId, commentId));
+    @GetMapping("/owners/{ownerId}/comments/{commentId}")
+    public CommentResource getCommentByIdAndUserId(@PathVariable Long ownerId, @PathVariable Long commentId) {
+        return convertToResource(commentService.getCommentByIdAndUserId(commentId,ownerId));
     }
 
     @Operation(summary = "Create a Comment", description = "Create a Comment", tags = {"comments"})
@@ -74,11 +73,10 @@ public class CommentsController {
             @ApiResponse(responseCode = "200", description = "Comment created", content = @Content(mediaType = "application/json"))
 
     })
-    @PostMapping("/users/{userId}/comments")
-    public CommentResource createComment(@PathVariable Long userId, @Valid @RequestBody SaveCommentResource resource) {
-        Comment comment = convertToEntity(resource);
-        comment.setOwner(userService.getUserById(userId));
-        return convertToResource(commentService.createComment(comment));
+    @PostMapping("/owners/{ownerId}/comments")
+    public CommentResource createComment(@PathVariable Long ownerId, @Valid @RequestBody SaveCommentResource resource) {
+
+        return convertToResource(commentService.createComment(ownerId,convertToEntity(resource)));
     }
 
     @Operation(summary = "Update a Comment", description = "Update a Comment", tags = {"comments"})

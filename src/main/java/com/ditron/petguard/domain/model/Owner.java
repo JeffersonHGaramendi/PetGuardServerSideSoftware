@@ -30,7 +30,7 @@ public class Owner extends AuditModel{
 
     public Owner() {    }
 
-    public Owner(Long id, String name, String lastname, String age, String phoneNumber, String email, String creditCard) {
+    public Owner(Long    id, String name, String lastname, String age, String phoneNumber, String email, String creditCard) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;

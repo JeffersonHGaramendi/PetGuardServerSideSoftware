@@ -25,8 +25,8 @@ public class OrderServiceImpl implements OrderService {
     }
     //
 
-    public Page<Order> getAllOrdersByUserId(Long userId, Pageable pageable) {
-        return orderRepository.findByUserId(userId,pageable);
+    public Page<Order> getAllOrdersByOwnerId(Long ownerId, Pageable pageable) {
+        return orderRepository.findByOwnerId(ownerId,pageable);
     }
 
     //
@@ -60,3 +60,4 @@ public class OrderServiceImpl implements OrderService {
         });
     }
 }
+

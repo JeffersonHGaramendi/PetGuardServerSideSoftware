@@ -15,23 +15,23 @@ public class OwnerServiceImpl implements OwnerService {
     @Autowired
     private OwnerRepository userRepository;
     @Override
-    public Page<Owner> getAllUsers(Pageable pageable) {
+    public Page<Owner> getAllOwners(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
     @Override
-    public Owner getUserById(Long userId) {
+    public Owner getOwnerById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
     }
 
     @Override
-    public Owner createUser(Owner user) {
+    public Owner createOwner(Owner user) {
         return userRepository.save(user);
     }
 
     @Override
-    public Owner updateUser(Long userId, Owner userRequest) {
+    public Owner updateOwner(Long userId, Owner userRequest) {
         Owner user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
         return userRepository.save(
@@ -44,10 +44,11 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public ResponseEntity<?> deleteUser(Long userId) {
+    public ResponseEntity<?> deleteOwner(Long userId) {
         Owner user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
         userRepository.delete(user);
         return ResponseEntity.ok().build();
     }
 }
+
